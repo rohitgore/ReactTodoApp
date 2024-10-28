@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes,Route } from 'react-router-dom';
+import Header from './component/Header';
+import List from './component/List';
+import Addtodo from './component/Addtodo';
+import NoMatch from './component/NoMatch';
+import React, { Children,createContext, useContext, useState, useSyncExternalStore } from 'react';
+import Edittodo from './component/Edittodo';
 
+export const myContext = React.createContext();
 function App() {
+
+  const [state, setstate] = useState([]);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div classNameName="App">
+      <myContext.Provider value={{state,setstate}}>
+        <Header></Header>
+        <Routes>
+          <Route path='/' element={<List value="{List}"/>}></Route>
+          <Route path='/add' element={<Addtodo/>}></Route>
+          <Route path='/edit/:id' element={<Edittodo/>}></Route>
+          <Route path='*' element={<NoMatch/>}></Route>
+        </Routes>
+        </myContext.Provider>
     </div>
   );
 }
